@@ -269,6 +269,16 @@
   }
 
   // Barras horizontais com uma ou mais séries empilhadas
+  // Rótulo longo (ex.: "Volkswagen Caminhões") quebra em duas linhas,
+  // senão o Chart.js corta o começo do nome no eixo
+  function quebrarRotulo(texto) {
+    if (texto.length <= 14 || !texto.includes(' ')) return texto;
+    const meio = texto.length / 2;
+    const espacos = [...texto].map((c, i) => (c === ' ' ? i : -1)).filter((i) => i > 0);
+    const corte = espacos.reduce((melhor, i) => (Math.abs(i - meio) < Math.abs(melhor - meio) ? i : melhor));
+    return [texto.slice(0, corte), texto.slice(corte + 1)];
+  }
+
   function barrasHorizontais(rotulos, series, formatoValor) {
     return {
       type: 'bar',
@@ -292,7 +302,11 @@
         },
         scales: {
           x: { stacked: true, beginAtZero: true, grid: { color: '#edf0f5' }, ticks: { callback: (v) => formatoValor(v, true) } },
-          y: { stacked: true, grid: { display: false } },
+          y: {
+            stacked: true,
+            grid: { display: false },
+            ticks: { autoSkip: false, callback(valor) { return quebrarRotulo(this.getLabelForValue(valor)); } },
+          },
         },
       },
     };

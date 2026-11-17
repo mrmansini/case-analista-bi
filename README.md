@@ -6,6 +6,11 @@ Entrega de Felipe Mansini Rodrigues para o case de Analista de BI Jr. do Grupo S
 - **Parte 2:** correção dos 8 chamados da página de manutenção, com melhorias e CHANGELOG.
 - **Explicação:** `Explicacao_Case_BI_Felipe_Mansini.pdf`, com métricas, regras, tratamento dos dados, resultados e recomendações.
 
+## Versão online
+
+- Página inicial da entrega: https://mrmansini.github.io/case-analista-bi/
+- Repositório: https://github.com/mrmansini/case-analista-bi
+
 ## Como abrir
 
 Não é preciso instalar nada para ver as páginas. Os dados do dashboard já vão prontos na pasta.
@@ -22,6 +27,8 @@ Basta abrir o arquivo no navegador (duplo clique). Testei no Chrome, no computad
 
 ```
 ├── index.html                          página de entrada, com links para as duas partes
+├── favicon.svg, favicon.png            ícone das páginas na aba do navegador
+├── .gitignore
 ├── README.md
 ├── DECISOES.md                         regras de tratamento e de cada métrica
 ├── Explicacao_Case_BI_Felipe_Mansini.pdf

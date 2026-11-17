@@ -104,7 +104,7 @@ O arquivo é gerado por `scripts/05_base_parte2.py`. Ele sai no formato que o Ex
 
 - **Visual da página.** Não mudei a aparência geral: fonte, cores, tamanhos e estrutura dos blocos continuam os mesmos. A página já está publicada e segue o padrão visual da plataforma de BI, que o próprio CSS cita. Se eu mudasse o layout, a página ficaria diferente das outras da plataforma, e quem revisa teria mais dificuldade para separar o que é correção dos chamados do que é mudança de estilo. Os ajustes de CSS ficaram restritos ao que os chamados e as melhorias pediam.
 - **Taxa de recusa.** A página calcula recusados ÷ lançados (671 ÷ 7.053 = 9,5%). Nessa conta entram no divisor os bônus que ainda não tiveram resposta da montadora. Se a conta considerar só os bônus já respondidos, recusados ÷ (aprovados + recusados), a taxa sobe para 16,6% (671 ÷ 4.050). É essa a regra que usei no dashboard da Parte 1. Mantive a regra da página porque nenhum chamado pede para mudá-la, e trocar a definição de um indicador já publicado precisa ser combinado com quem usa a página. Fica a sugestão de alinhar as duas regras.
-- **Link "Voltar ao portal".** Continua apontando para `#`, porque não tenho o endereço do portal. Basta trocar o `href` quando ele for definido.
+- **Link "Voltar ao portal".** Não tenho o endereço do portal da plataforma, então, na versão publicada da entrega, o link leva para a página inicial do case (`../index.html`). Quando o endereço do portal for definido, basta trocar o `href`. A página também ganhou um ícone na aba do navegador.
 
 ## Como testei
 

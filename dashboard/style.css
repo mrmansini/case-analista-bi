@@ -176,6 +176,19 @@ select {
   padding-bottom: 18px;
 }
 
+/* Link para a página inicial da entrega (index.html na raiz) */
+.topo__voltar {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--azul);
+  text-decoration: none;
+}
+
+.topo__voltar:hover {
+  text-decoration: underline;
+}
+
 .topo__ref strong {
   color: var(--texto);
 }
