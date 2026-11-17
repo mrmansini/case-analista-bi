@@ -72,9 +72,14 @@
 
   function moedaCurta(n) {
     if (Math.abs(n) >= 1e6) return 'R$ ' + fmtDuasCasas.format(n / 1e6) + ' mi';
-    if (Math.abs(n) >= 1e3) return 'R$ ' + fmtInteiro.format(n / 1e3) + ' mil';
+    if (Math.abs(n) >= 1e5) return 'R$ ' + fmtInteiro.format(n / 1e3) + ' mil';
+    if (Math.abs(n) >= 1e3) return 'R$ ' + fmtUmaCasa.format(n / 1e3) + ' mil';
     return moeda(n);
   }
+
+  // Nas tabelas, o valor completo aparece no computador e o resumido no
+  // celular (R$ 2,36 mi), para a coluna não ficar larga demais na tela pequena
+  const moedaTabela = (n) => `<span class="valor-cheio">${moeda(n)}</span><span class="valor-curto">${moedaCurta(n)}</span>`;
 
   function nomeMes(mes) {
     const [ano, m] = mes.split('-');
@@ -640,7 +645,7 @@
         <tr>
           <td class="centro">${l.posicao}</td>
           <th scope="row">${nome(l)}</th>
-          <td class="num"><strong>${moeda(l.risco)}</strong></td>
+          <td class="num"><strong>${moedaTabela(l.risco)}</strong></td>
           <td class="centro">${pct(l.participacao)}</td>
           <td class="centro">${inteiro(l.qtdRisco)}</td>
           <td class="centro">${composicao(l)}</td>
@@ -823,7 +828,7 @@
         <tr>
           <th scope="row">${esc(l.nome)}</th>
           <td class="centro">${inteiro(l.qtd)}</td>
-          <td class="num"><strong>${moeda(l.recebido)}</strong></td>
+          <td class="num"><strong>${moedaTabela(l.recebido)}</strong></td>
           <td class="centro">
             <span class="barra-tabela">
               <span class="barra-tabela__trilho"><span style="width:${(retorno / maior) * 100}%"></span></span>
@@ -831,7 +836,7 @@
             </span>
           </td>
           <td class="centro">${pct(l.taxaRecusa)}</td>
-          <td class="num">${moeda(l.risco)}</td>
+          <td class="num">${moedaTabela(l.risco)}</td>
         </tr>`;
       }).join('')}
       </tbody>`;
@@ -855,6 +860,11 @@
     const ate = [20, 41, 75];
     return `rgb(${de.map((v, i) => Math.round(v + (ate[i] - v) * t)).join(',')})`;
   }
+
+  // Nome longo de marca vira sigla no cabeçalho do mapa, com o nome completo
+  // ao passar o mouse; assim a coluna não fica alta demais no celular
+  const SIGLAS = { 'Volkswagen Caminhões': 'VW Caminhões' };
+  const nomeColuna = (marca) => (SIGLAS[marca] ? `<abbr title="${esc(marca)}">${esc(SIGLAS[marca])}</abbr>` : esc(marca));
 
   function desenharMapaRecusa(lista) {
     const tabela = $('mapa-recusa');
@@ -884,7 +894,7 @@
     tabela.innerHTML = `
       <thead><tr>
         <th scope="col"><span class="sr-only">Filial</span></th>
-        ${marcas.map((m) => `<th scope="col">${esc(m)}</th>`).join('')}
+        ${marcas.map((m) => `<th scope="col">${nomeColuna(m)}</th>`).join('')}
         <th scope="col">Total</th>
       </tr></thead>
       <tbody>
@@ -935,7 +945,7 @@
       <tr>
         <${celula} scope="row">${esc(l.nome.replace('Servopa ', ''))}</${celula}>
         <td class="centro">${inteiro(l.qtd)}</td>
-        <td class="num">${moeda(l.bonus)}</td>
+        <td class="num">${moedaTabela(l.bonus)}</td>
         <td class="centro">${pct(l.margemVendaPre)}</td>
         <td class="centro">${pct(l.margemVendaPos)}</td>
         <td class="centro">${peso(l)}</td>

@@ -900,8 +900,36 @@ th[aria-sort="descending"] .ordenar::after {
   font-variant-numeric: tabular-nums;
 }
 
+.calor abbr {
+  text-decoration: none;
+  cursor: help;
+}
+
 .calor .calor__total {
   font-weight: 700;
+}
+
+/* No celular o mapa rola para o lado com colunas mais largas,
+   para o nome das marcas caber sem quebrar no meio da palavra */
+@media (max-width: 860px) {
+  .calor {
+    min-width: 1200px;
+  }
+}
+
+/* Valor em R$ das tabelas: completo no computador, resumido no celular */
+.valor-curto {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .valor-cheio {
+    display: none;
+  }
+
+  .valor-curto {
+    display: inline;
+  }
 }
 
 .vazio {
