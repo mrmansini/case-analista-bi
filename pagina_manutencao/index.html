@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acompanhamento de Bônus por Filial | Plataforma de BI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topo">
+    <div class="topo__marca">Plataforma de BI <span>| Controle de Bônus</span></div>
+    <nav class="topo__links" aria-label="Links da página">
+      <a href="#">Voltar ao portal</a>
+      <a href="base_controle_de_bonus.csv" download>Baixar base (CSV)</a>
+    </nav>
+  </header>
+
+  <main class="conteudo">
+
+    <section class="titulo">
+      <h1>Acompanhamento de Bônus por Filial</h1>
+      <p>Período: 01/01/2025 a 31/12/2025 &nbsp;|&nbsp; Fonte: aba Controle_de_Bonus</p>
+    </section>
+
+    <section class="cards" aria-label="Indicadores">
+      <div class="card">
+        <span class="card__rotulo">Valor recebido</span>
+        <strong class="card__valor">R$ 15.473.000,55</strong>
+        <span class="card__nota">Bônus com status Aprovado</span>
+      </div>
+      <div class="card">
+        <span class="card__rotulo">Bônus em aberto</span>
+        <strong class="card__valor">3.003</strong>
+        <span class="card__nota">Pendente + Enviado</span>
+      </div>
+      <div class="card card--alert">
+        <span class="card__rotulo">Taxa de recusa</span>
+        <strong class="card__valor">9,5%</strong>
+        <span class="card__nota">671 de 7.053 bônus lançados</span>
+      </div>
+      <div class="card">
+        <span class="card__rotulo">Envios fora do prazo</span>
+        <strong class="card__valor">41,8%</strong>
+        <span class="card__nota">2.389 de 5.718 bônus enviados</span>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <h2 id="titulo-tabela">Detalhe por filial</h2>
+      <p class="bloco__ajuda">Clique no nome de uma coluna para ordenar a tabela.</p>
+
+      <div class="tabela-rolagem" role="region" aria-labelledby="titulo-tabela" tabindex="0">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th scope="col" aria-sort="none"><button type="button" class="ordenar" data-tipo="texto">Filial</button></th>
+              <th scope="col" aria-sort="none"><button type="button" class="ordenar" data-tipo="numero">Lançados</button></th>
+              <th scope="col" aria-sort="none"><button type="button" class="ordenar" data-tipo="numero">Aprovados</button></th>
+              <th scope="col" aria-sort="none"><button type="button" class="ordenar" data-tipo="numero">Em aberto</button></th>
+              <th scope="col" aria-sort="none"><button type="button" class="ordenar" data-tipo="numero">Recusados</button></th>
+              <th scope="col" aria-sort="none"><button type="button" class="ordenar" data-tipo="numero" data-alerta>Taxa de recusa</button></th>
+              <th scope="col" aria-sort="none"><button type="button" class="ordenar" data-tipo="numero" data-alerta>Fora do prazo</button></th>
+              <th scope="col" aria-sort="none"><button type="button" class="ordenar" data-tipo="numero">Valor recebido</button></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Servopa Curitiba - Rebouças</td>
+              <td>1.854</td><td>899</td><td>772</td><td>183</td>
+              <td>9,9%</td><td>41,4%</td>
+              <td>R$ 4.051.350,76</td>
+            </tr>
+            <tr>
+              <td>Servopa Curitiba - Boqueirão</td>
+              <td>918</td><td>454</td><td>366</td><td>98</td>
+              <td>10,7%</td><td>43,9%</td>
+              <td>R$ 2.093.296,15</td>
+            </tr>
+            <tr>
+              <td>Servopa São José dos Pinhais</td>
+              <td>1.174</td><td>550</td><td>522</td><td>102</td>
+              <td>8,7%</td><td>41,0%</td>
+              <td>R$ 2.411.383,49</td>
+            </tr>
+            <tr>
+              <td>Servopa Ponta Grossa</td>
+              <td>755</td><td>374</td><td>314</td><td>67</td>
+              <td>8,9%</td><td>39,6%</td>
+              <td>R$ 1.683.849,36</td>
+            </tr>
+            <tr>
+              <td>Servopa Londrina</td>
+              <td>1.191</td><td>565</td><td>517</td><td>109</td>
+              <td>9,2%</td><td>39,6%</td>
+              <td>R$ 2.726.530,52</td>
+            </tr>
+            <tr>
+              <td>Servopa Maringá</td>
+              <td>1.161</td><td>537</td><td>512</td><td>112</td>
+              <td>9,6%</td><td>45,1%</td>
+              <td>R$ 2.506.590,27</td>
+            </tr>
+          </tbody>
+          <!-- O total fica no tfoot para não sair do fim da tabela quando ela é ordenada -->
+          <tfoot>
+            <tr class="tabela__total">
+              <td>Total</td>
+              <td>7.053</td><td>3.379</td><td>3.003</td><td>671</td>
+              <td>9,5%</td><td>41,8%</td>
+              <td>R$ 15.473.000,55</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <p class="legenda"><span class="acima-total" aria-hidden="true">▲</span> Taxa de recusa ou envio fora do prazo acima do total da empresa.</p>
+    </section>
+
+    <p class="regras">
+      Regras: Valor recebido = soma de Valor_recebido dos bônus com Status "Aprovado".
+      Em aberto = Status "Pendente" ou "Enviado". Taxa de recusa = Recusados ÷ Lançados.
+      Fora do prazo = bônus com Flag_envio_fora_prazo = 1 ÷ bônus com Data_envio preenchida.
+    </p>
+
+  </main>
+
+  <footer class="rodape">
+    Atualizado em 13/10/2026 &nbsp;|&nbsp; Dúvidas: equipe de BI
+  </footer>
+
+  <script src="tabela.js"></script>
+</body>
+</html>

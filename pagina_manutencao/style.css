@@ -1,0 +1,284 @@
+/* =========================================================
+   Plataforma de BI - Controle de Bônus
+   Folha de estilo da página "Acompanhamento de Bônus por Filial"
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Foco visível ao navegar pelo teclado (Tab). A cor acompanha o texto do
+   elemento, então o contorno aparece tanto no topo escuro quanto no fundo claro. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eef1f5;
+  color: #13294b;
+  font-size: 15px;
+}
+
+/* ---------- Topo ---------- */
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 24px;
+  background: #13294b;
+  color: #ffffff;
+  padding: 16px 32px;
+}
+
+.topo__marca {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.topo__marca span {
+  font-weight: normal;
+  opacity: .8;
+}
+
+.topo__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.topo__links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.topo__links a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Conteúdo ---------- */
+.conteudo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.titulo h1 {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.titulo p {
+  color: #5a6b85;
+  margin-bottom: 28px;
+}
+
+/* ---------- Cards de indicadores ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  border-top: 4px solid #13294b;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card__rotulo {
+  font-size: 13px;
+  color: #5a6b85;
+}
+
+.card__valor {
+  font-size: 28px;
+}
+
+.card__nota {
+  font-size: 12px;
+  color: #5a6b85;
+}
+
+/* Padrão da plataforma: indicador de alerta em vermelho */
+.card--alert {
+  border-top-color: #c62828;
+}
+
+.card--alert .card__valor {
+  color: #c62828;
+}
+
+/* ---------- Tabela ---------- */
+.bloco {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.bloco h2 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.bloco__ajuda {
+  font-size: 13px;
+  color: #5a6b85;
+  margin-bottom: 16px;
+}
+
+/* A tabela rola dentro do próprio quadro quando a tela é estreita,
+   em vez de empurrar a página inteira para os lados */
+.tabela-rolagem {
+  position: relative;   /* mantém o texto para leitor de tela dentro do quadro */
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.tabela th,
+.tabela td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e3e8ef;
+  text-align: left;
+}
+
+/* Colunas de número alinhadas à direita, para as casas decimais
+   e os milhares ficarem um embaixo do outro */
+.tabela th:not(:first-child),
+.tabela td:not(:first-child) {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Largura mínima para o nome da filial não quebrar em três linhas no celular */
+.tabela td:first-child {
+  min-width: 190px;
+}
+
+.tabela th {
+  background: #f5f7fa;
+  font-size: 13px;
+  color: #5a6b85;
+}
+
+.tabela__total td {
+  font-weight: bold;
+  background: #f5f7fa;
+}
+
+/* Botão de ordenar com a aparência do próprio cabeçalho */
+.ordenar {
+  font: inherit;
+  font-weight: bold;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+.ordenar::after {
+  content: " ↕";
+  opacity: .45;
+}
+
+th[aria-sort="ascending"] .ordenar::after {
+  content: " ▲";
+  opacity: 1;
+}
+
+th[aria-sort="descending"] .ordenar::after {
+  content: " ▼";
+  opacity: 1;
+}
+
+th[aria-sort="ascending"],
+th[aria-sort="descending"] {
+  color: #13294b;
+}
+
+/* Filial acima do total da empresa, no vermelho de alerta da plataforma */
+.acima-total {
+  color: #c62828;
+  font-weight: bold;
+}
+
+.legenda {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #5a6b85;
+}
+
+/* Texto lido apenas por leitores de tela */
+.leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Regras de cálculo ---------- */
+.regras {
+  margin-top: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a6b85;
+}
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  margin-top: 16px;
+  background: #13294b;
+  color: #ffffff;
+  text-align: center;
+  padding: 18px;
+  font-size: 13px;
+}
+
+/* ---------- Telas menores ---------- */
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .topo {
+    padding: 14px 16px;
+  }
+
+  .conteudo {
+    padding: 20px 16px;
+  }
+
+  .titulo h1 {
+    font-size: 22px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .bloco {
+    padding: 16px;
+  }
+}

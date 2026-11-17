@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Case Analista de BI Jr. | Felipe Mansini Rodrigues</title>
+  <meta name="description" content="Entrega do case de Analista de BI Jr.: dashboard de controle de bônus, página de manutenção corrigida e explicação.">
+  <style>
+    /* Página de entrada da entrega: leva para as duas partes e para a explicação */
+    @font-face { font-family: "Poppins"; font-weight: 400; src: url("dashboard/fontes/poppins-latin-400-normal.woff2") format("woff2"); }
+    @font-face { font-family: "Poppins"; font-weight: 600; src: url("dashboard/fontes/poppins-latin-600-normal.woff2") format("woff2"); }
+
+    :root {
+      --marinho: #14294b;
+      --texto-2: #4f5f78;
+      --fundo: #eef1f6;
+      --linha: #d6dde8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", Arial, sans-serif;
+      background: var(--fundo);
+      color: var(--marinho);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 16px;
+    }
+
+    .conteudo { width: 100%; max-width: 720px; }
+
+    /* multiply tira o fundo branco da imagem da logo sobre o fundo cinza */
+    .logo { height: 48px; margin-bottom: 28px; mix-blend-mode: multiply; }
+
+    h1 { font-size: 26px; font-weight: 600; margin-bottom: 4px; }
+
+    .sub { color: var(--texto-2); margin-bottom: 28px; }
+
+    .itens { list-style: none; display: grid; gap: 12px; }
+
+    .itens a {
+      display: block;
+      padding: 18px 22px;
+      background: #fff;
+      border: 1px solid var(--linha);
+      border-left: 4px solid var(--marinho);
+      border-radius: 12px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .itens a:hover { border-color: var(--marinho); }
+
+    .itens a:focus-visible { outline: 2px solid var(--marinho); outline-offset: 3px; }
+
+    .itens strong { display: block; font-size: 16px; font-weight: 600; }
+
+    .itens span { font-size: 14px; color: var(--texto-2); }
+
+    .rodape { margin-top: 28px; font-size: 13px; color: var(--texto-2); }
+  </style>
+</head>
+<body>
+  <main class="conteudo">
+    <img class="logo" src="dashboard/img/logo-grupo-servopa.png" alt="Grupo Servopa">
+    <h1>Case Analista de BI Jr.</h1>
+    <p class="sub">Felipe Mansini Rodrigues</p>
+
+    <ul class="itens">
+      <li>
+        <a href="dashboard/index.html">
+          <strong>Parte 1: Dashboard de controle de bônus</strong>
+          <span>Visão executiva, visão operacional e análises, com filtros</span>
+        </a>
+      </li>
+      <li>
+        <a href="pagina_manutencao/index.html">
+          <strong>Parte 2: Página de manutenção corrigida</strong>
+          <span>Os 8 chamados corrigidos e as melhorias. Detalhes no CHANGELOG</span>
+        </a>
+      </li>
+      <li>
+        <a href="Explicacao_Case_BI_Felipe_Mansini.pdf">
+          <strong>Explicação (PDF)</strong>
+          <span>Métricas, regras, tratamento dos dados, resultados e recomendações</span>
+        </a>
+      </li>
+    </ul>
+
+    <p class="rodape">Scripts de tratamento, regras e instruções no README do projeto. Dados fictícios do case.</p>
+  </main>
+</body>
+</html>

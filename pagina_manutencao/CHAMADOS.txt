@@ -1,0 +1,45 @@
+CASE ANALISTA DE BI JR. - PARTE 2: MANUTENÇÃO
+===============================================
+
+A página desta pasta (index.html + style.css) já está publicada na
+plataforma de BI e recebeu os chamados abaixo dos usuários.
+
+Abra o index.html no navegador, investigue e corrija cada chamado.
+Os números da página vêm da aba Controle_de_Bonus do arquivo
+controle_de_bonus_case.xlsx (as regras de cálculo estão no fim da página).
+
+CHAMADOS
+--------
+1. O título da aba aparece como "Document" e o navegador oferece
+   traduzir a página do inglês.
+
+2. Os 4 indicadores deveriam ficar lado a lado no computador.
+   Hoje um deles cai sozinho para a linha de baixo.
+
+3. O card "Taxa de recusa" deveria aparecer em vermelho, no padrão de
+   alerta da plataforma, mas está igual aos demais.
+
+4. No celular a página não se adapta: a tabela corta e a tela rola
+   para os lados.
+
+5. Os valores da coluna "Valor recebido" estão sem padrão (alguns sem
+   R$ ou sem separador de milhar) e alinhados à esquerda.
+
+6. A soma da coluna "Valor recebido" não bate com o total.
+   Confira com a base e corrija o que estiver errado.
+
+7. O rodapé fica por cima do conteúdo e esconde parte da página.
+
+8. O texto das regras de cálculo está quase ilegível, e ao navegar pelo
+   teclado (Tab) não dá para ver qual link está selecionado.
+
+MELHORIA LIVRE
+--------------
+Além dos chamados, implemente uma melhoria de sua escolha na página
+e explique por que ela ajuda o usuário.
+
+O QUE ENTREGAR
+--------------
+- Esta pasta com os arquivos corrigidos.
+- Um arquivo CHANGELOG (.md ou .txt) explicando, para cada chamado,
+  o que você encontrou e o que fez.

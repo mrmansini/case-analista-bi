@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controle de Bônus | Dealer Servopa</title>
+  <meta name="description" content="Bônus de montadora: quanto foi recebido, quanto está em risco, onde o processo trava e onde agir primeiro.">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ===================== Topo e abas ===================== -->
+  <header class="topo">
+    <div class="topo__marca">
+      <img class="topo__logo" src="img/logo-grupo-servopa.png" alt="Grupo Servopa" width="297" height="83">
+      <h1 class="topo__titulo">Controle de <strong>Bônus</strong></h1>
+    </div>
+
+    <nav class="abas" aria-label="Visões do dashboard">
+      <div class="abas__lista" role="tablist">
+        <button type="button" role="tab" id="aba-executiva" aria-controls="painel-executiva" aria-selected="true">Visão executiva</button>
+        <button type="button" role="tab" id="aba-operacional" aria-controls="painel-operacional" aria-selected="false" tabindex="-1">Visão operacional</button>
+        <button type="button" role="tab" id="aba-analises" aria-controls="painel-analises" aria-selected="false" tabindex="-1">Análises</button>
+      </div>
+    </nav>
+
+    <p class="topo__ref" id="referencia"></p>
+  </header>
+
+  <!-- ===================== Filtros (valem para todas as abas) ===================== -->
+  <section class="filtros" aria-label="Filtros">
+    <div class="filtros__grupo">
+      <label for="filtro-de">Venda de</label>
+      <select id="filtro-de"></select>
+    </div>
+    <div class="filtros__grupo">
+      <label for="filtro-ate">até</label>
+      <select id="filtro-ate"></select>
+    </div>
+    <div class="filtros__grupo">
+      <label for="filtro-filial">Filial</label>
+      <select id="filtro-filial"><option value="">Todas</option></select>
+    </div>
+    <div class="filtros__grupo">
+      <label for="filtro-marca">Marca</label>
+      <select id="filtro-marca"><option value="">Todas</option></select>
+    </div>
+    <div class="filtros__grupo">
+      <label for="filtro-tipo">Tipo de bônus</label>
+      <select id="filtro-tipo"><option value="">Todos</option></select>
+    </div>
+    <button type="button" class="botao botao--contorno" id="filtro-limpar">Limpar filtros</button>
+    <p class="filtros__resumo" id="filtro-resumo" aria-live="polite"></p>
+  </section>
+
+  <main id="conteudo" class="conteudo">
+
+    <!-- ===================== VISÃO EXECUTIVA ===================== -->
+    <section class="painel" role="tabpanel" id="painel-executiva" aria-labelledby="aba-executiva">
+
+      <div class="kpis" id="kpis"></div>
+
+      <article class="card">
+        <div class="card__cabecalho">
+          <h2>Composição do bônus lançado <span class="info" data-info="Cada bônus está em uma única situação. Recebido usa o valor pago pela montadora. As outras usam o valor da campanha, porque o bônus ainda não foi pago."></span></h2>
+          <p class="card__destaque">Total lançado <strong id="regua-total"></strong></p>
+        </div>
+        <div class="regua" id="regua" role="img"></div>
+        <ul class="regua__legenda" id="regua-legenda"></ul>
+      </article>
+
+      <div class="grade grade--2">
+        <article class="card">
+          <h2>Recebido por mês da venda <span class="info" data-info="Soma do valor recebido dos bônus aprovados, pelo mês em que o veículo foi vendido."></span></h2>
+          <p class="card__sub">Em R$ milhões</p>
+          <div class="grafico grafico--alto"><canvas id="grafico-mes"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>Recebido e em risco por marca <span class="info" data-info="Verde: valor recebido. Âmbar: valor em risco (valor da campanha dos bônus parados com sinal de perda)."></span></h2>
+          <p class="card__sub">Em R$ milhões</p>
+          <div class="grafico grafico--alto"><canvas id="grafico-marca"></canvas></div>
+        </article>
+      </div>
+
+      <div class="grade grade--2">
+        <article class="card">
+          <h2>Recebido e em risco por filial <span class="info" data-info="Verde: valor recebido. Âmbar: valor em risco."></span></h2>
+          <p class="card__sub">Em R$ milhões</p>
+          <div class="grafico"><canvas id="grafico-filial"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>Valor em risco por situação <span class="info" data-info="Sem retorno: enviado há mais de 75 dias, o maior tempo de resposta já registrado. Não enviado: pendente com prazo vencido. Aprovado e não pago: aprovado sem valor e sem data de recebimento. Enviado sem data: sem comprovação do envio."></span></h2>
+          <p class="card__sub">O que fazer com cada parte do risco</p>
+          <ul class="acoes-risco" id="lista-risco"></ul>
+        </article>
+      </div>
+
+      <article class="card card--destaque">
+        <h2>Ações prioritárias</h2>
+        <p class="card__sub">Calculado a partir dos filtros escolhidos</p>
+        <ul class="insights" id="insights"></ul>
+      </article>
+    </section>
+
+    <!-- ===================== VISÃO OPERACIONAL ===================== -->
+    <section class="painel" role="tabpanel" id="painel-operacional" aria-labelledby="aba-operacional" hidden>
+
+      <article class="card">
+        <h2>Gargalos do processo</h2>
+        <p class="card__sub">Onde o bônus perde tempo, da venda até a resposta da montadora</p>
+        <div class="etapas" id="etapas"></div>
+      </article>
+
+      <div class="grade grade--2">
+        <article class="card">
+          <h2>Envio fora do prazo por marca <span class="info" data-info="Bônus enviados depois de data da venda + prazo da campanha, divididos pelos bônus com data de envio. Em azul-escuro, as marcas acima da média."></span></h2>
+          <p class="card__sub" id="sub-prazo"></p>
+          <div class="grafico grafico--alto"><canvas id="grafico-prazo"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>Bônus enviados sem resposta <span class="info" data-info="Bônus com status Enviado, agrupados pelos dias entre o envio e a data de referência. Acima de 75 dias entram no valor em risco."></span></h2>
+          <p class="card__sub">Há quanto tempo esperam a montadora</p>
+          <div class="grafico grafico--alto"><canvas id="grafico-espera"></canvas></div>
+        </article>
+      </div>
+
+      <article class="card">
+        <div class="card__cabecalho">
+          <h2>Ranking de risco <span class="info" data-info="Ordenado pelo valor em risco. A barra mostra de que situação vem o risco de cada linha."></span></h2>
+          <div class="alternador" role="group" aria-label="Agrupar ranking por">
+            <button type="button" data-ranking="filial" aria-pressed="true">Filial</button>
+            <button type="button" data-ranking="marca" aria-pressed="false">Marca</button>
+            <button type="button" data-ranking="campanha" aria-pressed="false">Campanha</button>
+          </div>
+        </div>
+        <div class="tabela-rolagem" role="region" aria-label="Ranking de risco" tabindex="0">
+          <table class="tabela" id="tabela-ranking"></table>
+        </div>
+        <ul class="legenda" id="legenda-ranking"></ul>
+      </article>
+
+      <article class="card">
+        <div class="card__cabecalho">
+          <h2>Bônus em risco, um a um</h2>
+          <button type="button" class="botao" id="baixar-csv">Baixar CSV</button>
+        </div>
+        <div class="detalhe-filtros">
+          <div class="filtros__grupo">
+            <label for="detalhe-busca">Buscar chassi ou campanha</label>
+            <input type="search" id="detalhe-busca" placeholder="Ex.: CAMP_0160" autocomplete="off">
+          </div>
+          <div class="filtros__grupo">
+            <label for="detalhe-situacao">Situação</label>
+            <select id="detalhe-situacao"><option value="">Todas</option></select>
+          </div>
+          <p class="detalhe-filtros__total" id="detalhe-total" aria-live="polite"></p>
+        </div>
+        <div class="tabela-rolagem" role="region" aria-label="Bônus em risco" tabindex="0">
+          <table class="tabela tabela--detalhe" id="tabela-detalhe"></table>
+        </div>
+        <div class="paginacao" id="paginacao"></div>
+      </article>
+
+      <article class="card">
+        <h2>Pontos para conferir na base <span class="info" data-info="Lançamentos que seguem nos números do dashboard, porque quem define o status é a montadora, mas que precisam de checagem. As regras de cada alerta estão no DECISOES.md (decisões 10 e 11)."></span></h2>
+        <p class="card__sub">Lançamentos mantidos nos números, mas que o time operacional precisa revisar</p>
+        <div class="tabela-rolagem" role="region" aria-label="Pontos para conferir na base" tabindex="0">
+          <table class="tabela" id="tabela-alertas"></table>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===================== ANÁLISES ===================== -->
+    <section class="painel" role="tabpanel" id="painel-analises" aria-labelledby="aba-analises" hidden>
+
+      <article class="card">
+        <h2>Retorno por tipo de bônus <span class="info" data-info="Retorno: valor recebido dividido pelo total lançado do tipo (valor pago nos bônus recebidos e valor da campanha nos demais). Mostra quanto de cada real lançado virou dinheiro."></span></h2>
+        <p class="card__sub">Quanto de cada real lançado entrou no caixa</p>
+        <div class="tabela-rolagem" role="region" aria-label="Retorno por tipo de bônus" tabindex="0">
+          <table class="tabela" id="tabela-tipos"></table>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Campanhas que mais pagaram</h2>
+        <p class="card__sub">10 maiores em valor recebido, em R$ mil</p>
+        <div class="grafico grafico--alto"><canvas id="grafico-campanhas"></canvas></div>
+      </article>
+
+      <article class="card">
+        <h2>Taxa de recusa por filial e marca <span class="info" data-info="Recusados divididos pelos bônus que já tiveram resposta (aprovados + recusados). Quanto mais escuro, maior a recusa. Células com menos de 10 bônus decididos ficam em branco."></span></h2>
+        <p class="card__sub">Em %. A última linha e a última coluna mostram o total de cada marca e de cada filial.</p>
+        <div class="tabela-rolagem" role="region" aria-label="Taxa de recusa por filial e marca" tabindex="0">
+          <table class="calor" id="mapa-recusa"></table>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__cabecalho">
+          <div>
+            <h2>Dependência do bônus na margem <span class="info" data-info="Margem sem bônus: margem líquida pré-bônus dividida pelo valor de venda. Margem com bônus: margem pré-bônus mais o bônus aprovado do veículo, dividida pelo valor de venda. Peso do bônus: bônus recebido dividido pela margem com bônus. O filtro de tipo de bônus não muda esta tabela, porque a margem é do veículo inteiro."></span></h2>
+            <p class="card__sub">Quanto maior o peso do bônus, mais a margem cai quando o bônus não entra.</p>
+          </div>
+          <div class="alternador" role="group" aria-label="Agrupar margem por">
+            <button type="button" data-margem="marca" aria-pressed="true">Marca</button>
+            <button type="button" data-margem="filial" aria-pressed="false">Filial</button>
+          </div>
+        </div>
+        <div class="tabela-rolagem" role="region" aria-label="Peso do bônus na margem" tabindex="0">
+          <table class="tabela" id="tabela-margem"></table>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Pós-venda e recusa <span class="info" data-info="Cada bônus de pós-venda depende de um indicador do veículo. Os veículos foram divididos em 4 faixas de cada indicador, com cortes nos quartis da base inteira. A tabela compara a taxa de recusa (recusados dividido por aprovados + recusados) na pior e na melhor faixa. No tempo de atendimento, a pior faixa é a dos atendimentos mais demorados."></span></h2>
+        <p class="card__sub">Taxa de recusa de cada bônus de pós-venda, nos veículos com o pior e com o melhor resultado no indicador</p>
+        <div class="tabela-rolagem" role="region" aria-label="Pós-venda e recusa" tabindex="0">
+          <table class="tabela" id="tabela-posvenda"></table>
+        </div>
+        <p class="card__nota" id="nota-posvenda"></p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p class="rodape__autor">Candidato Felipe Mansini</p>
+    <p>Dados fictícios do case Analista de BI Jr. Tratamento em <code>scripts/02_tratamento.sql</code>. Regras em <code>DECISOES.md</code>.</p>
+  </footer>
+
+  <!-- Chart.js 4.5.1 (licença MIT) fica na pasta lib para a página abrir sem internet -->
+  <script src="lib/chart.umd.min.js"></script>
+  <script src="dados.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
